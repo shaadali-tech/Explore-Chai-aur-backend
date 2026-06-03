@@ -1,6 +1,17 @@
 import connectDB from './db/index.js';
+import express from 'express';
 
-connectDB();
+const app = express();
+
+connectDB()
+  .then(() => {
+    app.listen(process.env.PORT || 800, () => {
+      console.log(`port is running at ${process.env.PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.log('Mongodb connection failed', err);
+  });
 
 /*
 async function connectDB() {
